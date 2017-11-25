@@ -1,0 +1,94 @@
+{
+	"StarsLoyalty": {
+		"Properties": {
+			"Reason": {
+				"Type": "string"
+			},		   
+			"PartnershipTeam": {
+				"Type": "user"
+			},
+			"BusinessPartner": {
+				"Type": "user"
+			},
+			"State": {
+				"Type": "state"
+			},
+			"Price": {
+			    "Type": "money"
+			},
+			"RateperStar": {
+				"Type": "money"
+			},
+			"NumberofStars": {
+				"Type": "money"
+			},
+			"Expiration": {
+				"Type": "money"
+			},
+			"Terms": {
+				"Type": "string"
+			},
+			"RefundPercentage": {
+				"Type": "money"
+			},
+			"StartDate": {
+				"Type": "money"
+			},
+			"EndDate": {
+				"Type": "money"
+			}			
+		},
+		"Constructor": {
+			"_description": {
+				"Type": "string"
+			}		
+		},
+		"Actions": {
+		    "offerTermstoBusinessPartner": {
+				"Parameters": {			
+					"_price": {
+						"Type": "money"
+					},
+					"_rateperStar": {
+						"Type": "money"
+					},					
+					"_numberofStars": {
+						"Type": "money"
+					},					
+					"_expiration": {
+						"Type": "money"
+					},
+					"_terms": {
+						"Type": "string"
+					},
+					"_refundPercentage": {
+						"Type": "money"
+					},
+					"_startDate": {
+						"Type": "money"
+					},				
+					"_endDate": {
+						"Type": "money"
+					}								
+				}						
+			},
+            "rescindOffer": { 
+			    "Parameters": {
+                    "reason" : {				
+                        "Type": "string"		
+					 } 
+				}
+            }								   
+		},
+		"Chains": {
+			"Ethereum": {
+				"Type": "Ethereum",
+				"Version": "1.0",
+				"Location": "StarsLoyalty.sol",
+				"TypeName": "StarsLoyalty",
+				"ActionOverrides": {},
+				"PropertyOverrides": {}
+			}
+		}
+	}
+}
