@@ -1,0 +1,109 @@
+pragma solidity ^0.4.10;
+
+contract LexingtonBase {
+    event LexingtonContractCreated(string contractType, address originatingAddress);
+    event LexingtonContractUpdated(string contractType, string action, address originatingAddress);
+    
+    string internal ContractType;
+
+    function LexingtonBase(string contractType) internal {
+        ContractType = contractType;
+    }
+
+    function ContractCreated() internal {
+        LexingtonContractCreated(ContractType, msg.sender);
+    }
+
+    function ContractUpdated(string action) internal {
+        LexingtonContractUpdated(ContractType, action, msg.sender);
+    }
+}
+
+contract StarsloyaltyPrepaid is LexingtonBase('StarsloyaltyPrepaid')
+{
+    enum AssetState { Created, ReadyToInvoice, InvoiceDelivered, InvoicePaid, Issuable }
+    address public PartnershipTeam;
+    string public Terms;
+    uint public Price;
+	uint public RatePerStar;
+	uint public NumberOfStars;
+	uint public Expiration;
+	uint public RefundPercentage;
+	uint public StartDate;
+	uint public EndDate;
+	uint public InvoiceNumber;
+	uint public Amount;
+	uint public Date;
+	uint public ContractID;
+	uint public BillToPartyID;
+	uint public PaidDate;
+    AssetState public State;
+    
+    address public BusinessPartner;
+    address public BusinessPartnerLegal;
+    address public BusinessPartnerFinance;
+    
+    function StarsloyaltyPrepaid(uint256 price, uint256 ratePerStar, uint256 numberOfStars, uint256 expiration, string terms, uint256 refundPercentage, uint256 startDate, uint256 endDate) 
+    {
+        BusinessPartnerLegal = msg.sender;
+        Price = price;
+        RatePerStar = ratePerStar;
+        NumberOfStars = numberOfStars;
+		Expiration = expiration;
+		Terms = terms;
+		RefundPercentage = refundPercentage;
+		StartDate = startDate;
+		EndDate = endDate;
+        State = AssetState.ReadyToInvoice;
+        ContractCreated();
+    }
+	
+	function InvoiceDelivered(uint256 invoiceNumber, uint256 amount, uint256 date, uint256 contractID, uint256 billToPartyID)
+	{   
+	    BusinessPartnerFinance = msg.sender;
+        if (BusinessPartnerFinance != msg.sender)
+        {
+            revert();
+        }
+
+        InvoiceNumber = invoiceNumber;
+        Amount = amount;
+		Date = date;
+		ContractID = contractID;
+		BillToPartyID = billToPartyID;
+		State = AssetState.InvoiceDelivered;
+        ContractUpdated('InvoiceDelivered');	
+	}
+	
+	function InvoicePaid(uint256 invoiceNumber, uint256 amount, uint256 date, uint256 contractID, uint256 billToPartyID, uint256 paidDate)
+	{
+	    BusinessPartner = msg.sender;
+        if (BusinessPartner != msg.sender)
+        {
+            revert();
+        }
+
+        InvoiceNumber = invoiceNumber;
+        Amount = amount;
+		Date = date;
+		PaidDate = paidDate;
+		State = AssetState.InvoicePaid;
+		ContractID = contractID;
+		BillToPartyID = billToPartyID;		
+        ContractUpdated('InvoicePaid');	
+	}
+	
+	function IssueStarBlock(uint256 numberOfStars)
+	{
+	    PartnershipTeam = msg.sender;
+        if (PartnershipTeam != msg.sender)
+        {
+            revert();
+        }
+
+        NumberOfStars = numberOfStars;   
+		State = AssetState.Issuable;		
+        ContractUpdated('IssueStarBlock');	
+	
+	}
+}
