@@ -1,0 +1,93 @@
+{
+    "Contracts": {
+        "StarsLoyalty": {
+            "InitiatingRoles": [
+                "Admin",
+                "User"
+            ],
+            "Personas": {
+                "PartnershipTeam": {
+                    "Role": "Initiator",
+                    "IsInitiator": true,
+                    "PropertyMapping": "PartnershipTeam"
+                },
+                "BusinessPartner": {
+                    "Role": "Participant",
+                    "PropertyMapping": "BusinessPartner"
+                }
+            },
+            "StateProperty": "State",
+            "StateMapping": {
+                "Created": 0,
+				"Active": 1,
+                "AwaitingBusinessPartnerResponse": 2,
+				"Terminated": 3
+            },
+            "States": {
+                "Created": {
+                    "PercentComplete": 0,
+                    "IsInitiatingState": true,
+                    "TargetState": "Active",
+                    "Style": "Success",      
+                    "Actions": {
+                        "PartnershipTeam": {
+                            "Create": {}
+                        }
+                    }					
+                },
+                "Active": {
+                    "PercentComplete": 20,
+                    "IsDefaultState": true,
+                    "TargetState": "AwaitingBusinessPartnerResponse",
+                    "Style": "Success",
+                    "Actions": {
+                        "PartnershipTeam": {
+                            "offerTermstoBusinessPartner": {
+                                "DisplayName": "OfferTermstoBusinessPartner",
+                                "Theme": {}
+                            }
+                        }
+                    }
+                },				
+                "AwaitingBusinessPartnerResponse": {
+                    "PercentComplete": 40,
+                    "Style": "Success",
+                    "Actions": {
+                        "PartnershipTeam": {
+                            "rescindOffer": {
+                                "DisplayName": "RescindOffer",
+                                "Theme": {}
+                            }
+                        }   
+                    }                         		
+			   },
+                "Terminated": {
+                    "PercentComplete": 100,
+                    "Style": "Failure"
+                }			   
+            },
+            "Properties": {
+                "PartnershipTeam": {
+                    "DisplayName": "StarbucksCoffee",
+                    "Description": "Starbucks Coffee"
+                },
+                "BusinessPartner": {
+                    "DisplayName": "ChaseBank",
+                    "Description": "Chase Bank"
+                }
+            },
+            "Constructor": {
+                "DisplayName": "Create StarsLoyalty",
+                "Description": "StarsLoyalty Constructor"
+            },
+            "Actions": {
+                "offerTermstoBusinessPartner": {
+                    "DisplayName": "Starbucks offers Terms to Chase"
+                },
+                "rescindOffer": {
+                    "DisplayName": "Chase rescinds offer of Starbucks"
+                }             
+            }
+        }
+    }
+}
