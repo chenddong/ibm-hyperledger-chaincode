@@ -1,0 +1,74 @@
+pragma solidity ^0.4.10;
+
+contract LexingtonBase {
+    event LexingtonContractCreated(string contractType, address originatingAddress);
+    event LexingtonContractUpdated(string contractType, string action, address originatingAddress);
+    
+    string internal ContractType;
+
+    function LexingtonBase(string contractType) internal {
+        ContractType = contractType;
+    }
+
+    function ContractCreated() internal {
+        LexingtonContractCreated(ContractType, msg.sender);
+    }
+
+    function ContractUpdated(string action) internal {
+        LexingtonContractUpdated(ContractType, action, msg.sender);
+    }
+}
+
+contract StarsLoyalty is LexingtonBase('StarsLoyalty')
+{
+
+    enum AssetState { Created, Active, AwaitingBusinessPartnerResponse, Terminated }
+    
+	address public PartnershipTeam;
+	address public BusinessPartner;
+	
+    AssetState public State;
+	uint public price;
+	uint public rateperStar;
+	uint public numberofStars;
+	uint public expiration;
+	string public terms;
+	uint public refundPercentage;
+	uint public startDate;
+	uint public endDate;
+	string public Reason;
+	string public Description;
+
+    function StarsLoyalty(string description) 
+    {
+        PartnershipTeam=msg.sender;
+        State = AssetState.Active;
+		Description = description;
+        ContractCreated();
+    }	
+	
+    function offerTermstoBusinessPartner(uint256 _price, uint256 _rateperStar, uint256 _numberofStars, uint256 _expiration, string _terms, uint256 _refundPercentage, uint256 _startDate, uint256 _endDate) 
+    {
+        PartnershipTeam = msg.sender;
+        price = _price;
+		rateperStar = _rateperStar;
+        numberofStars = _numberofStars;
+        expiration = _expiration;
+        terms = _terms;
+		refundPercentage = _refundPercentage;
+		startDate = _startDate;
+		endDate = _endDate;
+        State = AssetState.AwaitingBusinessPartnerResponse;
+        ContractUpdated('offerTermstoBusinessPartner');
+    }
+    function rescindOffer(string _reason) public {
+	        BusinessPartner = msg.sender;
+			Reason = _reason;
+            if (BusinessPartner != msg.sender || State != AssetState.AwaitingBusinessPartnerResponse)
+                {
+				revert();
+                }
+            State = AssetState.Terminated;
+            ContractUpdated('BusinessPartner rescinds offer');
+    }	    
+}
