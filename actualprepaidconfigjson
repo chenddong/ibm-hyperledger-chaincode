@@ -1,0 +1,149 @@
+{
+    "StarsloyaltyPrepaid": {
+        "Properties": {
+            "State": {
+                "Type": "state"
+            },
+            "PartnershipTeam": {
+                "Type": "user"
+            },
+            "BusinessPartner": {
+                "Type": "user"
+            },
+            "BusinessPartnerLegal": {
+                "Type": "user"
+            },
+            "BusinessPartnerFinance": {
+                "Type": "user"
+            },			
+            "Price": {
+                "Type": "money"
+            },
+            "RatePerStar": {
+                "Type": "money"
+            },
+            "NumberOfStars": {
+                "Type": "money"
+            },
+            "Expiration": {
+                "Type": "money"
+            },
+            "Terms": {
+                "Type": "string"
+            },
+            "RefundPercentage": {
+                "Type": "money"
+            },
+            "StartDate": {
+                "Type": "money"
+            },
+            "EndDate": {
+                "Type": "money"
+            },
+            "InvoiceNumber": {
+                "Type": "money"
+            },
+            "Amount": {
+                "Type": "money"
+            },
+            "Date": {
+                "Type": "money"
+            },
+            "ContractID": {
+                "Type": "money"
+            },
+            "BillToPartyID": {
+                "Type": "money"
+            },			
+            "PaidDate": {
+                "Type": "money"
+            }			
+        },
+        "Constructor": {
+            "price": {
+                "Type": "money"
+            },
+            "ratePerStar": {
+                "Type": "money"
+            },
+            "numberOfStars": {
+                "Type": "money"
+            },
+            "expiration": {
+                "Type": "money"
+            },
+            "terms": {
+                "Type": "string"
+            },
+            "refundPercentage": {
+                "Type": "money"
+            },
+            "startDate": {
+                "Type": "money"
+            },
+            "endDate": {
+                "Type": "money"
+            }
+        },		
+        "Actions": {
+            "InvoiceDelivered": {
+                "Parameters": {
+					"invoiceNumber": {
+						"Type": "money"
+					},
+					"amount": {
+						"Type": "money"
+					},
+					"date": {
+						"Type": "money"
+					},
+					"contractID": {
+						"Type": "money"
+					},
+					"billToPartyID": {
+						"Type": "money"
+					}
+                 }
+            },
+            "InvoicePaid": {
+                "Parameters": {
+					"invoiceNumber": {
+						"Type": "money"
+					},
+					"amount": {
+						"Type": "money"
+					},
+					"date": {
+						"Type": "money"
+					},
+					"contractID": {
+						"Type": "money"
+					},
+					"billToPartyID": {
+						"Type": "money"
+					},
+					"paidDate": {
+						"Type": "money"
+					}
+                }
+            },
+            "IssueStarBlock": {
+                "Parameters": {
+                    "numberOfStars": {
+                        "Type": "money"
+                    }
+                }
+            }
+        },		
+        "Chains": {
+            "Ethereum": {
+                "Type": "Ethereum",
+                "Version": "1.0",
+                "Location": "StarsloyaltyPrepaid.sol",
+                "TypeName": "StarsloyaltyPrepaid",
+                "ActionOverrides": {},
+                "PropertyOverrides": {}
+            }
+         }
+      }
+   }			
