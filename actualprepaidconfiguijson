@@ -1,0 +1,107 @@
+{
+    "Contracts": {
+        "StarsloyaltyPrepaid": {
+            "InitiatingRoles": [
+                "Admin",
+                "User"
+            ],
+            "Personas": {
+                "PartnershipTeam": {
+                    "Role": "Initiator",
+                    "IsInitiator": true,
+                    "PropertyMapping": "PartnershipTeam"
+                },
+                "BusinessPartner": {
+                    "Role": "Participant",
+                    "PropertyMapping": "BusinessPartner"
+                },
+                "BusinessPartnerLegal": {
+                    "Role": "Participant",
+                    "PropertyMapping": "BusinessPartnerLegal"
+                },
+                "BusinessPartnerFinance": {
+                    "Role": "Participant",
+                    "PropertyMapping": "BusinessPartnerFinance"
+                }
+            },                
+            "StateProperty": "State",
+            "StateMapping": {
+                "Created": 0,
+                "ReadytoInvoice": 1,
+                "InvoiceDelivered": 2,
+				"InvoicePaid": 3,
+				"Issuable": 4
+            },			
+            "States": {
+                "Created": {
+                    "PercentComplete": 0,
+                    "IsInitiatingState": true,
+                    "TargetState": "ReadytoInvoice",
+                    "Style": "Success",
+                    "Actions": {
+                        "Owner": {
+                            "Create": {}
+                        }
+                    }
+                },
+                "ReadytoInvoice": {
+                    "PercentComplete": 30,
+					"TargetState": "InvoiceDelivered",
+                    "Style": "Success",				
+                    "Actions": {
+                        "BusinessPartnerFinance": {
+                            "InvoiceDelivered": {
+                                "DisplayName": "InvoiceDelivered",
+                                "Theme": {}							
+							}
+                        }
+                    }
+                },
+                "InvoiceDelivered": {
+                    "PercentComplete": 40,
+					"TargetState": "InvoicePaid",					
+                    "Style": "Success",
+                    "Actions": {
+                        "BusinessPartner":  {
+                            "InvoicePaid": {
+                                "DisplayName": "InvoicePaid",
+                                "Theme": {}		
+                          }
+                       }
+                    }
+                },
+                "InvoicePaid": {
+                    "PercentComplete": 50,			
+                    "Style": "Success",
+                },				
+                "Issuable": {
+                    "PercentComplete": 100,
+                    "Style": "Success",
+                    "Actions": {
+                        "PartnershipTeam": {
+                            "IssueStarblock": {
+                                "DisplayName": "IssueStarblock",
+                                "Theme": {}	
+                        }
+                     }
+                  }
+               }
+            },
+            "Properties": {
+                "BusinessPartnerLegal": {
+                    "DisplayName": "BusinessPartnerLegal",
+                    "Description": "BusinessPartnerLegal Description"
+                }
+            },
+            "Constructor": {
+                "DisplayName": "Create Postpaid contract",
+                "Description": "Description of postpaid contract"
+            },
+            "Actions": {
+                "Terminate": {
+                    "DisplayName": "Terminate Contract"
+                }
+            }
+        }
+    }
+}			
